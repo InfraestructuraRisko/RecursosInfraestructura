@@ -1,6 +1,5 @@
 #!/bin/sh
 # FIREWALL GRUPO 4
-#SO2A - 2019
  
 clear
 echo  "\n\t\t\t\tFIREWALL GRUPO 4"
