@@ -23,20 +23,25 @@ iptables -t nat -P POSTROUTING ACCEPT
 echo "\tADMITIENDO CONEXIOSNES INTERFACES"
  echo "\t\tINTERNA"
 iptables -A INPUT -s 192.168.100.0/24 -p tcp --dport  1:10000 -j ACCEPT
-iptables -A INPUT -s 192.168.100.0/24 -p udp --dport 1:10000 -j ACCEPT
-iptables -A OUTPUT -s 192.168.100.0/24 -p tcp --dport 1:10000 -j ACCEPT
-iptables -A OUTPUT -s 192.168.100.0/24 -p udp --dport 1:10000 -j ACCEPT
  echo "\t\tDMZ"
-iptables -A INPUT -s 192.168.50.0/24 -p tcp --dport 1:10000 -j ACCEPT
-iptables -A INPUT -s 192.168.50.0/24 -p udp --dport 1:10000 -j ACCEPT
-iptables -A OUTPUT -s 192.168.50.0/24 -p udp --dport 1:10000 -j ACCEPT
-iptables -A OUTPUT -s 192.168.50.0/24 -p tcp --dport 1:10000 -j ACCEPT
+iptables -A INPUT -s 192.168.50.0/24 -p tcp --dport 1:999 -j ACCEPT
  echo "\t\tEXTERNA"
 iptables -A INPUT -s 192.168.1.0/24 -p tcp --dport 10000 -j DROP
+iptables -A INPUT -s 192.168.1.0/24 -p tcp --dport 3306 -j DROP
+iptables -A INPUT -s 192.168.1.0/24 -p tcp --dport 80 -j DROP
+iptables -A INPUT -s 192.168.1.0/24 -p tcp --dport 21 -j DROP
+iptables -A INPUT -s 192.168.1.0/24 -p tcp --dport 465 -j DROP
+iptables -A INPUT -s 192.168.1.0/24 -p tcp --dport 587 -j DROP
+iptables -A INPUT -s 192.168.1.0/24 -p tcp --dport 110 -j DROP
 echo "\t\tVPN"
 iptables -A INPUT -s 192.168.0.0/24 -p tcp --dport 10000 -j ACCEPT
-#iptables -A OUTPUT -s 192.168.1.0/24 -p tcp --dport 1:10000 -j ACCEPT
-#iptables -A OUTPUT -s 192.168.1.0/24 -p udp --dport 1:10000 -j ACCEPT
+iptables -A INPUT -s 192.168.0.0/24 -p tcp --dport 3306 -j ACCEPT
+iptables -A INPUT -s 192.168.0.0/24 -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -s 192.168.0.0/24 -p tcp --dport 21 -j ACCEPT
+iptables -A INPUT -s 192.168.0.0/24 -p tcp --dport 465 -j ACCEPT
+iptables -A INPUT -s 192.168.0.0/24 -p tcp --dport 587 -j ACCEPT
+iptables -A INPUT -s 192.168.0.0/24 -p tcp --dport 110 -j ACCEPT
+iptables -A INPUT -s 192.168.0.0/24 -p tcp --dport 1:10000 -j ACCEPT
 
 #ENMASCARAMIENTO DE CONEXION
 echo   "\tENMASCARAMIENTO"
@@ -71,17 +76,18 @@ iptables -A OUTPUT -p tcp --dport 3128 -j ACCEPT
 #REDIRECCIONAMIENTO DE PUERTOS DE CORREO Y FTP A LA  DMZ
 echo  "\tREDIRECCIONAMIENTOS"
 echo "\t\tFTP"
-iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 21 -j DNAT --to-destination 192.168.50.200:21
-iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 21 -j DNAT --to-destination 192.168.50.200:21
+iptables -t nat -A PREROUTING -s 192.168.0.0/24 -p tcp --dport 21 -j DNAT --to-destination 192.168.50.200:21
+iptables -t nat -A PREROUTING -s 192.168.0.0/24 -p tcp --dport 21 -j DNAT --to-destination 192.168.50.200:21
 echo "\t\tCORREOS"
-iptables -t nat -A PREROUTING -s 102.168.1.0/24 -p tcp --dport 993 -j DNAT --to-destination 192.168.50.200:993
-iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 110 -j DNAT --to-destination 192.168.50.200:110
-iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 587 -j DNAT --to-destination 192.168.50.200:587
-iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 8025 -j DNAT --to-destination 192.168.50.200:8025
-iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 143 -j DNAT --to-destination 192.168.50.200:143
-iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 465 -j DNAT --to-destination 192.168.50.200:465
-iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 80 -j DNAT --to-destination 192.168.50.200:80
-iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 443 -j DNAT --to-destination 192.168.50.200:443
+iptables -t nat -A PREROUTING -s 102.168.0.0/24 -p tcp --dport 993 -j DNAT --to-destination 192.168.50.200:993
+iptables -t nat -A PREROUTING -s 192.168.0.0/24 -p tcp --dport 110 -j DNAT --to-destination 192.168.50.200:110
+iptables -t nat -A PREROUTING -s 192.168.0.0/24 -p tcp --dport 587 -j DNAT --to-destination 192.168.50.200:587
+iptables -t nat -A PREROUTING -s 192.168.0.0/24 -p tcp --dport 8025 -j DNAT --to-destination 192.168.50.200:8025
+iptables -t nat -A PREROUTING -s 192.168.0.0/24 -p tcp --dport 143 -j DNAT --to-destination 192.168.50.200:143
+iptables -t nat -A PREROUTING -s 192.168.0.0/24 -p tcp --dport 465 -j DNAT --to-destination 192.168.50.200:465
+iptables -t nat -A PREROUTING -s 192.168.0.0/24 -p tcp --dport 80 -j DNAT --to-destination 192.168.50.200:80
+iptables -t nat -A PREROUTING -s 192.168.0.0/24 -p tcp --dport 443 -j DNAT --to-destination 192.168.50.200:443
 #REDIRECCION DE SQL DE INTERFAZ EXTERNA
 echo "\t\tMYSQL"
 iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 3306  -j DNAT --to-destination 192.168.100.5:3306 #REDIRECCIONAMIENTO MYSQL
+
