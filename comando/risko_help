@@ -1,4 +1,4 @@
-
+#COMANDOS PARA SERVICIOS
   #INFERFACES
 sudo nano /etc/network/interfaces
 /etc/init.d/networking restart
