@@ -1,27 +1,27 @@
 #!/bin/sh
   #INFERFACES
-MOD_INTERFACES='sudo nano /etc/network/interfaces'
-SAVE_INTERFACES='/etc/init.d/networking restart'
+export MOD_INTERFACES="sudo nano /etc/network/interfaces"
+export SAVE_INTERFACES='/etc/init.d/networking restart'
   #SAMBA
-$CONF_SAMBA='sudo nano /etc/samba/smb.conf'
-$RESTART_SAMBA='service smbd restart'
-$STATUSUS_SAMBA='service smbd status'
+export CONF_SAMBA='sudo nano /etc/samba/smb.conf'
+export RESTART_SAMBA='service smbd restart'
+export STATUS_SAMBA=service smbd status
   #DHCP
-$CONF_DHCP='sudo nano /etc/dhcp/dhcpd.conf'
-$RESTART_DHCP='service isc-dhcp-server restart'
-$STATUS_DHCP='service isc-dhcp-server status'
+export CONF_DHCP='sudo nano /etc/dhcp/dhcpd.conf'
+export RESTART_DHCP='service isc-dhcp-server restart'
+export STATUS_DHCP="service isc-dhcp-server status"
   #DNS
-$CONF_DNS='sudo nano /etc/bind/db.riskodns.com'
-$RESTART_DNS='service bind9 restart'
-$STATUS_DNS='service bind9 status'
+export CONF_DNS='sudo nano /etc/bind/db.riskodns.com'
+export RESTART_DNS='service bind9 restart'
+export STATUS_DNS='service bind9 status'
  #PROXY
-$CONF_PROXY='sudo nano /etc/squid/squid.conf'
-$RESTART_PROXY='service squid restart'
-$STATUS_PROXY='service squid status'
+export CONF_PROXY='sudo nano /etc/squid/squid.conf'
+export RESTART_PROXY='service squid restart'
+export STATUS_PROXY='service squid status'
  #VPN
-$CONF_VPN='sudo nano /etc/squid/squid.conf'
-$RESTART_VPN='service squid restart'
-$RESTART_VPN='service squid status'
+export CONF_VPN='sudo nano /etc/pptpd/pptpd.conf'
+export RESTART_VPN='service pptpd restart'
+export STATUS_VPN='service pptpd status'
 echo "VARIABLES ACTUALIZADAS"
 
 
